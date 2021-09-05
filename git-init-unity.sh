@@ -1,23 +1,24 @@
 #!/bin/bash
 
-# TODO: Make arguments can be flagged so don't have to use hardcoded argument indexes. Lookup getopts.
+while getopts 'r:p:m:' c; do
+    case $c in
+    r) REPO_ORIGIN=$OPTARG ;;
+    p) PROJECT_NAME=$OPTARG ;;
+    m) COMMIT_MESSAGE=$OPTARG ;;
+    esac
+done
 
-# Getting remote origin from first argument.
-REPO_ORIGIN=$1
-
-# Getting project name from current folder name, if there is a second parameter, use that instead.
+# Getting project name from current folder name.
 # Also, modify the string so it conforms Github repository name convention. (All lowercase, hypen '-' instead of whitespace ' ')
-PROJECT_NAME=${PWD##*/}
-if [ -n "$2" ]; then
-    PROJECT_NAME=$2
+if [ -z "$PROJECT_NAME" ]; then
+    PROJECT_NAME=${PWD##*/}
 fi
 PROJECT_NAME="${PROJECT_NAME// /-}"
 PROJECT_NAME=${PROJECT_NAME,,}
 
-# Commit message default to "first commit", if there is a third parameter, use that instead.
-COMMIT_MESSAGE="first commit"
-if [ -n "$3" ]; then
-    COMMIT_MESSAGE=$3
+# Commit message default to "first commit"
+if [ -z "$COMMIT_MESSAGE" ]; then
+    COMMIT_MESSAGE="first commit"
 fi
 
 # Initializing git
