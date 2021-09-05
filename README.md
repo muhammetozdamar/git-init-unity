@@ -15,16 +15,16 @@ chmod +x /usr/bin/git-init-unity.sh
 (Ex. https://github.com/user/repo.git)
 2. In root of your Unity project directory, run;
 ```console
-git-init-unity https://github.com/user/repo.git
+git-init-unity -r https://github.com/user/repo.git
 ```
 
-You can modify README content with second argument
+You can modify README content with -p
 ```console
-git-init-unity https://github.com/user/repo.git "custom readme"
+git-init-unity -r https://github.com/user/repo.git -p "custom readme"
 ```
-You can also modify commit message with third argument
+You can also modify commit message with -c
 ```console
-git-init-unity https://github.com/user/repo.git "custom readme" "first commit or whatever"
+git-init-unity -r https://github.com/user/repo.git -p "custom readme" -c "first commit or whatever"
 ```
 
 
