@@ -3,18 +3,18 @@
 while getopts 'r:p:m:' c; do
     case $c in
     r) REPO_ORIGIN=$OPTARG ;;
-    p) PROJECT_NAME=$OPTARG ;;
+    p) README_CONTENT=$OPTARG ;;
     m) COMMIT_MESSAGE=$OPTARG ;;
     esac
 done
 
-# Getting project name from current folder name.
+# README content default to current folder name.
 # Also, modify the string so it conforms Github repository name convention. (All lowercase, hypen '-' instead of whitespace ' ')
-if [ -z "$PROJECT_NAME" ]; then
-    PROJECT_NAME=${PWD##*/}
+if [ -z "$README_CONTENT" ]; then
+    README_CONTENT=${PWD##*/}
+    README_CONTENT="${README_CONTENT// /-}"
+    README_CONTENT=${README_CONTENT,,}
 fi
-PROJECT_NAME="${PROJECT_NAME// /-}"
-PROJECT_NAME=${PROJECT_NAME,,}
 
 # Commit message default to "first commit"
 if [ -z "$COMMIT_MESSAGE" ]; then
@@ -25,7 +25,7 @@ fi
 git init
 
 # Creating README.md file and writing project name to it.
-echo "# $PROJECT_NAME" >>README.md
+echo "# $README_CONTENT" >>README.md
 
 echo "Downloading latest version of Unity.gitignore"
 # Downloading latest version of Unity.gitignore from gitignore repository and writing to the .gitignore
