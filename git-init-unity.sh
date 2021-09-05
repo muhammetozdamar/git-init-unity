@@ -8,6 +8,12 @@ while getopts 'r:p:m:' c; do
     esac
 done
 
+if [ -z "$REPO_ORIGIN" ]; then
+    echo ERROR: You need to enter a remote repository address.
+    echo Ex: -r https://github.com/user/repo.git
+    exit 1
+fi
+
 # README content default to current folder name.
 # Also, modify the string so it conforms Github repository name convention. (All lowercase, hypen '-' instead of whitespace ' ')
 if [ -z "$README_CONTENT" ]; then
